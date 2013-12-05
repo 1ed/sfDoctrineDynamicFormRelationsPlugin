@@ -32,6 +32,11 @@ class sfDoctrineDynamicFormRelationsListener extends Doctrine_Record_Listener
    */
   public function preSave(Doctrine_Event $event)
   {
+    if ($this->form->getObject() !== $event->getInvoker())
+    {
+      return;
+    }
+
     // loop through relations
     if ($relations = $this->form->getOption('dynamic_relations'))
     {
